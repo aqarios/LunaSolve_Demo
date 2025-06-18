@@ -35,7 +35,6 @@ We solve the TSP for 4 German cities: **Berlin**, **Hamburg**, **Munich**, and *
    ```
 
    This will install all required packages from `pyproject.toml`:
-   - `dimod>=0.12.20` - Discrete optimization modeling
    - `folium>=0.19.7` - Interactive maps
    - `ipywidgets>=8.1.7` - Jupyter widgets
    - `luna-quantum>=1.0.0` - Luna Quantum SDK
