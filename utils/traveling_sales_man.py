@@ -1,12 +1,10 @@
 import math
 import pandas as pd
-from typing import Dict, List, Tuple, Union
+from typing import Dict, List, Tuple
 
 
 def extract_tour_from_solution(
-        variable_names: List[str],
-        sample_values: List[int],
-        start_city: str
+    variable_names: List[str], sample_values: List[int], start_city: str
 ) -> List[str]:
     """Extract tour from TSP solution with fixed starting city.
 
@@ -42,7 +40,7 @@ def extract_tour_from_solution(
     # Extract positions for other cities from active variables
     for var, val in zip(variable_names, sample_values):
         if val == 1:
-            _, city, pos = var.split('_')
+            _, city, pos = var.split("_")
             tour_dict[int(pos)] = city
 
     # Build tour in order of positions
@@ -90,8 +88,8 @@ def haversine(lat1: float, lon1: float, lat2: float, lon2: float) -> float:
 
     # Haversine formula
     a = (
-            math.sin(dlat / 2) ** 2
-            + math.cos(lat1) * math.cos(lat2) * math.sin(dlon / 2) ** 2
+        math.sin(dlat / 2) ** 2
+        + math.cos(lat1) * math.cos(lat2) * math.sin(dlon / 2) ** 2
     )
     c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
 
@@ -101,7 +99,8 @@ def haversine(lat1: float, lon1: float, lat2: float, lon2: float) -> float:
 
 
 def calculate_distance_matrix(
-        cities_dict: Dict[str, Tuple[float, float]]) -> pd.DataFrame:
+    cities_dict: Dict[str, Tuple[float, float]],
+) -> pd.DataFrame:
     """Calculate distance matrix between all pairs of cities.
 
     Computes the pairwise distances between all cities using the Haversine

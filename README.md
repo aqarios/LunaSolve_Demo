@@ -1,6 +1,6 @@
-# Luna Quantum SDK: Traveling Salesman Problem Demo
+# Luna Quantum SDK: Optimization Problems Demo
 
-Welcome to the **Luna Quantum SDK** demonstration! This project showcases Luna Quantum's powerful optimization capabilities through a comprehensive Traveling Salesman Problem (TSP) implementation.
+Welcome to the **Luna Quantum SDK** demonstration! This project showcases Luna Quantum's powerful optimization capabilities through comprehensive implementations of classic optimization problems including the Traveling Salesman Problem (TSP) and Warehouse Location Problem (WLP).
 
 ## 🚀 What This Demo Shows
 
@@ -11,9 +11,16 @@ This project demonstrates Luna Quantum's key features:
 - **Plug-and-Play Architecture**: Seamlessly switch between algorithms and backends without code changes
 - **Production-Ready**: Enterprise-grade quantum cloud platform with secure token management
 
-## 📍 The Problem
+## 📍 The Problems
 
+### 🗺️ Traveling Salesman Problem (TSP)
 We solve the TSP for 4 German cities: **Berlin**, **Hamburg**, **Munich**, and **Cologne**. The goal is to find the shortest route that visits all cities exactly once and returns to the starting point.
+
+### 🏭 Warehouse Location Problem (WLP)
+We solve a facility location optimization challenge that determines which warehouses to open and how to assign customers to minimize total cost. The problem considers:
+- 🚚 Transportation costs from warehouses to customers (hospitals in this demo)
+- 💰 Setup costs for opening new warehouses
+- 📦 Capacity constraints for each facility
 
 ## 🛠️ Setup Instructions
 
@@ -68,8 +75,15 @@ Set up your quantum computing tokens:
    ```
 
 2. **Open the notebooks**:
+   
+   **Traveling Salesman Problem (TSP):**
    - **Main demo**: Navigate to `notebooks/TSP_with_LunaSolve.ipynb` for the full demonstration
    - **Lite version**: Open `notebooks/TSP_with_LunaSolve_lite.ipynb` for a streamlined version
+   
+   **Warehouse Location Problem (WLP):**
+   - **Main demo**: Navigate to `notebooks/WLP_with_FlexQAOA.ipynb` for the full demonstration
+   - **Lite version**: Open `notebooks/WLP_with_FlexQAOA_lite.ipynb` for a streamlined version
+   
    - Run cells sequentially to see the demonstrations
 
 
@@ -77,14 +91,16 @@ Set up your quantum computing tokens:
 
 ```
 LunaDemo/
-├── README.md                           # This file
-├── pyproject.toml                      # Project dependencies
-├── uv.lock                             # Locked dependencies
-├── notebooks/                          # Jupyter notebooks
-│   ├── TSP_with_LunaSolve.ipynb        # Main demonstration notebook
-│   └── TSP_with_LunaSolve_lite.ipynb   # Streamlined demonstration
-├── plots/                              # Directory for managing example pictures
-└── utils/                              # Utility functions
+├── README.md                               # This file
+├── pyproject.toml                          # Project dependencies
+├── uv.lock                                 # Locked dependencies
+├── notebooks/                              # Jupyter notebooks
+│   ├── TSP_with_LunaSolve.ipynb            # TSP main demonstration notebook
+│   ├── TSP_with_LunaSolve_lite.ipynb       # TSP streamlined demonstration
+│   ├── WLP_with_FlexQAOA.ipynb             # WLP main demonstration notebook
+│   ├── WLP_with_FlexQAOA_lite.ipynb        # WLP streamlined demonstration
+│   └── plots/                              # Visualization assets
+└── utils/                                  # Utility functions
 ```
 
 ## 🔧 Key Features Demonstrated
@@ -100,19 +116,26 @@ LunaDemo/
 - Algorithm-agnostic model development
 
 ### 3. Multi-Algorithm Execution
-- Classical algorithms (Simulated Annealing, Tabu Search)
-- Quantum algorithms (Quantum Annealing)
-- Hybrid approaches
-- 
+- Classical algorithms (Simulated Annealing, Tabu Search, SCIP)
+- Quantum algorithms (Quantum Annealing, FlexQAOA)
+- Hybrid approaches and advanced constraint handling
+- Algorithm comparison and benchmarking
 
 ## 🎯 Expected Results
 
-The demo will show you:
+The demos will show you:
 
+### TSP Demo:
 1. **Problem Setup**: Interactive map showing the 4 German cities
 2. **Model Creation**: Two different modeling approaches (predefined vs custom)
 3. **Algorithm Comparison**: Results from classical and quantum algorithms
 4. **Solution Visualization**: Optimal tour plotted on an interactive map
+
+### WLP Demo:
+1. **Problem Setup**: Network visualization of warehouses, hospitals, and transportation costs
+2. **Model Creation**: Constrained optimization with capacity limits and facility costs
+3. **FlexQAOA Variants**: Comparison of different constraint handling approaches (standard QAOA, one-hot encoding, indicator functions)
+4. **Performance Analysis**: Solution quality distributions and algorithm benchmarking
 
 ## 🔍 Troubleshooting
 
@@ -136,12 +159,13 @@ If you encounter issues:
 
 ## 📚 Next Steps
 
-After running this demo:
+After running these demos:
 
 1. **Experiment** with different algorithms and parameters
-2. **Modify** the problem by adding more cities or constraints
-3. **Explore** other Luna Quantum use cases
-4. **Scale** to larger, real-world optimization problems
+2. **Modify** the problems by adding more cities/facilities or constraints
+3. **Compare** FlexQAOA variants on your own optimization problems
+4. **Explore** other Luna Quantum use cases
+5. **Scale** to larger, real-world optimization problems
 
 ## 🔗 Additional Resources
 
@@ -149,4 +173,4 @@ After running this demo:
 
 ---
 
-**Ready to explore quantum-enhanced optimization? Start with the main notebook and experience the future of problem-solving!**
+**Ready to explore quantum-enhanced optimization? Start with either the TSP or WLP notebooks and experience the future of problem-solving!**
