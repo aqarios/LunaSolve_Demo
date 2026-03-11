@@ -404,3 +404,82 @@ def plot_warehouse_network(facilities, hospitals, transport_costs):
 
     plt.tight_layout()
     plt.show()
+
+
+def plot_portfolio_solution(
+    solution: Solution,
+    asset_list: List[str],
+    allocation_levels: List[int],
+    covariance: np.ndarray,
+):
+    """
+    Plot the best portfolio optimization solution as a bar chart and pie chart.
+
+    Args:
+        solution: luna_quantum Solution object from the optimizer
+        asset_list: List of asset names matching the covariance matrix order
+        allocation_levels: List of discrete allocation levels (e.g. [1, 2, 3, 4, 5])
+        covariance: Covariance matrix as numpy array (n_assets x n_assets)
+    """
+    best = solution.best()
+    sample = dict(zip(solution.variable_names, best.sample))
+
+    # Decode one-hot variables into allocation per asset
+    portfolio = {}
+    for a in asset_list:
+        for q in allocation_levels:
+            if sample[f"x_{a}_{q}"] == 1:
+                portfolio[a] = q
+                break
+
+    total_units = sum(portfolio.values())
+    portfolio_weights = {a: q / total_units for a, q in portfolio.items()}
+
+    # Compute portfolio risk
+    w = np.array([portfolio_weights[a] for a in asset_list])
+    portfolio_risk = w @ covariance @ w
+
+    print("Optimal Portfolio Allocation:")
+    print("-" * 45)
+    for a in asset_list:
+        units = portfolio[a]
+        pct = portfolio_weights[a] * 100
+        print(f"  {a:10s}  {units} units  ({pct:.0f}%)")
+    print("-" * 45)
+    print(f"  Total:     {total_units} units  (100%)")
+    print(f"  Portfolio Risk (Variance): {portfolio_risk:.6f}")
+    print(f"  Portfolio Volatility:      {np.sqrt(portfolio_risk):.4f}")
+
+    # Plot
+    fig, axes = plt.subplots(1, 2, figsize=(14, 5))
+    colors = ["#013CF2", "#EBC25B", "#538A6A", "#7F7F7F"]
+
+    # Bar chart
+    axes[0].bar(asset_list, [portfolio[a] for a in asset_list],
+                color=colors[:len(asset_list)], edgecolor="black", linewidth=0.8)
+    axes[0].set_ylabel("Allocated Units")
+    axes[0].set_title("Portfolio Allocation (Units)")
+    axes[0].set_ylim(0, max(allocation_levels) + 0.5)
+    for i, a in enumerate(asset_list):
+        axes[0].text(i, portfolio[a] + 0.15, str(portfolio[a]),
+                     ha="center", fontweight="bold", fontsize=12)
+
+    # Pie chart
+    axes[1].pie(
+        [portfolio_weights[a] for a in asset_list],
+        labels=asset_list,
+        autopct="%1.0f%%",
+        colors=colors[:len(asset_list)],
+        startangle=90,
+        textprops={"fontsize": 12, "fontweight": "bold"},
+        wedgeprops={"edgecolor": "black", "linewidth": 0.8},
+    )
+    axes[1].set_title("Portfolio Allocation (%)")
+
+    fig.suptitle(
+        f"Minimum Risk Portfolio  —  Variance: {portfolio_risk:.6f},"
+        f"  Volatility: {np.sqrt(portfolio_risk):.4f}",
+        fontsize=13, fontweight="bold", y=1.02,
+    )
+    plt.tight_layout()
+    plt.show()

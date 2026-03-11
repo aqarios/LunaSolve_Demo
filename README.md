@@ -95,10 +95,8 @@ LunaDemo/
 ├── pyproject.toml                          # Project dependencies
 ├── uv.lock                                 # Locked dependencies
 ├── notebooks/                              # Jupyter notebooks
-│   ├── TSP_with_LunaSolve.ipynb            # TSP main demonstration notebook
-│   ├── TSP_with_LunaSolve_lite.ipynb       # TSP streamlined demonstration
-│   ├── WLP_with_FlexQAOA.ipynb             # WLP main demonstration notebook
-│   ├── WLP_with_FlexQAOA_lite.ipynb        # WLP streamlined demonstration
+│   ├── TSP_with_LunaSolve.ipynb            # TSP demonstration notebook
+│   ├── WLP_with_FlexQAOA.ipynb             # WLP demonstration notebook
 │   └── plots/                              # Visualization assets
 └── utils/                                  # Utility functions
 ```
