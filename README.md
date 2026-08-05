@@ -104,7 +104,7 @@ LunaDemo/
 ## 🔧 Key Features Demonstrated
 
 ### 1. Predefined Use Cases
-- Rapid prototyping with `TravellingSalesmanProblem`
+- Rapid prototyping with `luna_usecases` (`TspData` / `TspFormulation` / `TspInstance`)
 - Automatic model generation from graph data
 - Zero-setup optimization patterns
 

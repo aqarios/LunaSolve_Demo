@@ -1,11 +1,11 @@
 import math
+
 import pandas as pd
-from typing import Dict, List, Tuple
 
 
 def extract_tour_from_solution(
-    variable_names: List[str], sample_values: List[int], start_city: str
-) -> List[str]:
+    variable_names: list[str], sample_values: list[int], start_city: str
+) -> list[str]:
     """Extract tour from TSP solution with fixed starting city.
 
     This function reconstructs the tour path from the binary variables of a
@@ -32,7 +32,7 @@ def extract_tour_from_solution(
         >>> extract_tour_from_solution(variables, values, start)
         ['Munich', 'CityA', 'CityB', 'CityC', 'Munich']
     """
-    tour_dict: Dict[int, str] = {}
+    tour_dict: dict[int, str] = {}
 
     # Start city is fixed at position 0
     tour_dict[0] = start_city
@@ -99,7 +99,7 @@ def haversine(lat1: float, lon1: float, lat2: float, lon2: float) -> float:
 
 
 def calculate_distance_matrix(
-    cities_dict: Dict[str, Tuple[float, float]],
+    cities_dict: dict[str, tuple[float, float]],
 ) -> pd.DataFrame:
     """Calculate distance matrix between all pairs of cities.
 
@@ -137,7 +137,7 @@ def calculate_distance_matrix(
     cities = list(cities_dict.keys())
 
     # Initialize an empty distance matrix
-    distance_matrix: List[List[int]] = []
+    distance_matrix: list[list[int]] = []
 
     # Compute distance for each pair of cities
     for city1 in cities:

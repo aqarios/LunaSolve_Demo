@@ -1,11 +1,11 @@
+import math
+
 import folium
 import matplotlib.pyplot as plt
 import networkx as nx
-import math
-from typing import Dict, List, Tuple, Union
 import numpy as np
-from luna_quantum import Solution
 import pandas as pd
+from luna_quantum import Solution
 
 
 def solution_to_arrays(solution: Solution):
@@ -35,7 +35,7 @@ def solution_to_arrays(solution: Solution):
 
 
 def plot_graph_on_map(
-    G: nx.Graph, cities: Dict[str, Tuple[float, float]]
+    G: nx.Graph, cities: dict[str, tuple[float, float]]
 ) -> folium.Map:
     """Plot a graph visualization on an interactive map showing all city connections.
 
@@ -89,9 +89,9 @@ def plot_graph_on_map(
 
 def plot_solution_tour(
     G: nx.Graph,
-    cities: Dict[str, Tuple[float, float]],
-    tour: List[str],
-    distance_matrix: Union[Dict[str, Dict[str, float]], pd.DataFrame],
+    cities: dict[str, tuple[float, float]],
+    tour: list[str],
+    distance_matrix: dict[str, dict[str, float]] | pd.DataFrame,
 ) -> folium.Map:
     """Plot TSP solution tour on an interactive map with detailed visualization.
 
@@ -295,11 +295,11 @@ def plot_warehouse_network(facilities, hospitals, transport_costs):
 
     # Add edges with transportation costs
     for (hospital, facility), cost in transport_costs.items():
-        if hospital in hospitals.keys() and facility in facilities.keys():
+        if hospital in hospitals and facility in facilities:
             G.add_edge(hospital, facility, transport_cost=cost)
 
     # Create the layout
-    fig, ax = plt.subplots(1, 1, figsize=(14, 10))
+    _fig, ax = plt.subplots(1, 1, figsize=(14, 10))
 
     # Position nodes in two columns
     pos = {}
@@ -385,7 +385,7 @@ def plot_warehouse_network(facilities, hospitals, transport_costs):
         fontsize=14,
         fontweight="bold",
         ha="center",
-        bbox=dict(boxstyle="round,pad=0.3", facecolor="lightblue", alpha=0.7),
+        bbox={"boxstyle": "round,pad=0.3", "facecolor": "lightblue", "alpha": 0.7},
     )
     plt.text(
         3,
@@ -394,7 +394,7 @@ def plot_warehouse_network(facilities, hospitals, transport_costs):
         fontsize=14,
         fontweight="bold",
         ha="center",
-        bbox=dict(boxstyle="round,pad=0.3", facecolor="lightcoral", alpha=0.7),
+        bbox={"boxstyle": "round,pad=0.3", "facecolor": "lightcoral", "alpha": 0.7},
     )
 
     # Remove axes - adjust y-limits to accommodate headers
@@ -408,8 +408,8 @@ def plot_warehouse_network(facilities, hospitals, transport_costs):
 
 def plot_portfolio_solution(
     solution: Solution,
-    asset_list: List[str],
-    allocation_levels: List[int],
+    asset_list: list[str],
+    allocation_levels: list[int],
     covariance: np.ndarray,
 ):
     """
@@ -455,21 +455,32 @@ def plot_portfolio_solution(
     colors = ["#013CF2", "#EBC25B", "#538A6A", "#7F7F7F"]
 
     # Bar chart
-    axes[0].bar(asset_list, [portfolio[a] for a in asset_list],
-                color=colors[:len(asset_list)], edgecolor="black", linewidth=0.8)
+    axes[0].bar(
+        asset_list,
+        [portfolio[a] for a in asset_list],
+        color=colors[: len(asset_list)],
+        edgecolor="black",
+        linewidth=0.8,
+    )
     axes[0].set_ylabel("Allocated Units")
     axes[0].set_title("Portfolio Allocation (Units)")
     axes[0].set_ylim(0, max(allocation_levels) + 0.5)
     for i, a in enumerate(asset_list):
-        axes[0].text(i, portfolio[a] + 0.15, str(portfolio[a]),
-                     ha="center", fontweight="bold", fontsize=12)
+        axes[0].text(
+            i,
+            portfolio[a] + 0.15,
+            str(portfolio[a]),
+            ha="center",
+            fontweight="bold",
+            fontsize=12,
+        )
 
     # Pie chart
     axes[1].pie(
         [portfolio_weights[a] for a in asset_list],
         labels=asset_list,
         autopct="%1.0f%%",
-        colors=colors[:len(asset_list)],
+        colors=colors[: len(asset_list)],
         startangle=90,
         textprops={"fontsize": 12, "fontweight": "bold"},
         wedgeprops={"edgecolor": "black", "linewidth": 0.8},
@@ -479,7 +490,9 @@ def plot_portfolio_solution(
     fig.suptitle(
         f"Minimum Risk Portfolio  —  Variance: {portfolio_risk:.6f},"
         f"  Volatility: {np.sqrt(portfolio_risk):.4f}",
-        fontsize=13, fontweight="bold", y=1.02,
+        fontsize=13,
+        fontweight="bold",
+        y=1.02,
     )
     plt.tight_layout()
     plt.show()

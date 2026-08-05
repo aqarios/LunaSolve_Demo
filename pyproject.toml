@@ -9,15 +9,14 @@ dependencies = [
     "ipywidgets>=8.1.7",
     "jupyter>=1.1.1",
     "jupyterlab-lsp>=5.2.0",
-    "luna-bench",
-    "luna-quantum>=1.2.0",
+    "luna-bench>=0.2.0",
+    "luna-quantum>=1.2.3",
+    "luna-usecases>=0.1.1",
     "matplotlib>=3.10.3",
     "networkx>=3.5",
     "notebook>=7.4.3",
     "pandas>=2.3.0",
     "pyscipopt>=6.1.0",
+    "python-dotenv>=1.2.2",
     "seaborn>=0.13.2",
 ]
-
-[tool.uv.sources]
-luna-bench = { git = "https://github.com/aqarios/luna-bench" }

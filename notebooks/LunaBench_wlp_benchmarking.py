@@ -15,36 +15,16 @@
 # -----------------------------------------------------------------------------
 
 
-import multiprocessing
-import os
-from dotenv import load_dotenv
-
-load_dotenv()
-
-from luna_quantum import algorithms
-from luna_quantum import Model
+from dotenv import find_dotenv, load_dotenv
+load_dotenv(find_dotenv())
 
 from luna_bench import Benchmark, ModelSet
-from luna_bench.configs import config
-from luna_bench.features import VarNumberFeature, OptSolFeature
+from luna_bench.features import OptSolFeature, VarNumberFeature
 from luna_bench.metrics import FeasibilityRatio, Runtime
 from luna_bench.plots import (
     AverageFeasibilityRatioPlot,
 )
-
-# Known macOS issue with multiprocessing — must be set before spawning processes
-multiprocessing.set_start_method("fork")
-
-
-# LunaBench persists results in a local SQLite database. To start fresh,
-# we delete the existing database file (if any) before running.
-def delete_tables() -> None:
-    if config.DB_CONNECTION_STRING != ":memory:":
-        if os.path.isfile(config.DB_CONNECTION_STRING):
-            os.remove(config.DB_CONNECTION_STRING)
-
-
-delete_tables()
+from luna_quantum import Model, algorithms
 
 # -----------------------------------------------------------------------------
 # 2. Load the WLP model from a serialized file
